@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TermTrackerApp.Views.TermList"
+             Title="Term List"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout" Clicked="onLogoutClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView x:Name="CourseScrollView" Grid.Row="1"  >
+        <VerticalStackLayout Padding="15" Spacing="10">
+
+
+
+
+
+            <Label x:Name="Terms_label" Text="Terms" FontSize="20" FontAttributes="Bold" Margin="0,0,0,0" />
+
+            <BoxView Color="LightGray" HeightRequest="2" Margin= "0,0,0,20" />
+
+            <Label x:Name="Empty_Terms" Text="No Terms to Display" HorizontalOptions="Center" FontSize="18" VerticalOptions="Center" IsVisible="False"/>
+
+            <CollectionView ItemsSource="{Binding Terms}" SelectionMode="Single" SelectionChanged="OnTermSelected" >
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="10">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold"/>
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Label Text="Start:" FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding StartDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="16"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Label Text="End:" FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding EndDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="16"/>
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Frame>
+
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <BoxView Color="LightGray" HeightRequest="2" Margin="0, 20, 0, 0"/>
+            <Button x:Name="AddTermsButton" 
+                Text="Add New Term" 
+                TextColor="Black" 
+                BackgroundColor="LightGray" 
+                Clicked="OnAddTermClicked"
+                Margin="70, 10, 70, 10" />
+            <Button x:Name="ReportButton" 
+                    Text="Reports" 
+                    TextColor="Black" 
+                    BackgroundColor="LightGray" 
+                    Clicked="ReportButton_Clicked"
+                    Margin="70, 10, 70, 10" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage >

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TermTrackerApp.Views.AssessmentPage"
+             Title="Assessment Page">
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="Home" Clicked="OnHome_Clicked" />
+    </ContentPage.ToolbarItems>
+    <Grid RowDefinitions="Auto, *">
+
+        <HorizontalStackLayout Grid.Row="0" HorizontalOptions="End" Margin="0, 0, 10, 20">
+            <Button x:Name="EditButton" 
+                    Text="Edit" 
+                    TextColor="Black" 
+                    BackgroundColor="LightGray" 
+                    Clicked="EditButton_Clicked"    
+                    Margin="0, 0, 10, 0" />
+            <Button x:Name="SaveButton" 
+                    Text="Save" 
+                    TextColor="Black" 
+                    BackgroundColor="LightGray" 
+                    Clicked="SaveButton_Clicked"
+                    IsEnabled="False"
+                    IsVisible="False"
+                    Margin="0, 0, 10, 0" />
+            <Button x:Name="OnDeleteButton" 
+                    Text="Delete" 
+                    TextColor="Black" 
+                    BackgroundColor="LightGray" 
+                    Clicked="OnDeleteButton_Clicked" 
+                    />
+        </HorizontalStackLayout>
+        <ScrollView Grid.Row="1"  >
+            <VerticalStackLayout Padding="15" Spacing="10">
+                <Label Text="Assessment Name" FontSize="18" FontAttributes="Bold" />
+                <Entry x:Name="AssessmentNameEntry" IsEnabled="False" TextChanged="AssessmentNameEntry_TextChanged"/>
+                <Label x:Name="AssessmentName_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
+
+                <Label Text="Assessment Start Date" FontSize="18" FontAttributes="Bold"/>
+                <DatePicker x:Name="StartDatePicker" IsEnabled="False" DateSelected="StartDatePicker_DateSelected"/>
+
+                <Label Text="Assessment End Date" FontSize="18" FontAttributes="Bold"/>
+                <DatePicker x:Name="EndDatePicker" IsEnabled="False" DateSelected="EndDatePicker_DateSelected"/>
+
+                <Label x:Name="Date_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
+
+
+                <Label Text="Assessment Type" FontSize="18" FontAttributes="Bold"/>
+                <Picker x:Name="AssessmentPicker" Title="Assessment" IsEnabled="False" SelectedIndexChanged="AssessmentPicker_SelectedIndexChanged" >
+                    <Picker.Items>
+                        <x:String>Objective Assessment</x:String>
+                        <x:String>Performance Assessment</x:String>
+                    </Picker.Items>
+
+                </Picker>
+                <Label x:Name="AssessmentType_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
+
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" RowDefinitions="Auto, Auto">
+                    <Label Text="Notify on Start Date" FontSize="18" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center" />
+                    <Switch x:Name="startSwitch" IsEnabled="False" IsToggled="False" Grid.Column="2" VerticalOptions="Center" />
+                    <Label Text="Notify on End Date" FontSize="18" FontAttributes="Bold" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" />
+                    <Switch  x:Name="endSwitch" IsEnabled="False" IsToggled="False" Grid.Column="2" Grid.Row="1" VerticalOptions="Center" />
+                </Grid>
+
+                <Label x:Name="OALabel"   Text="" FontSize="18" IsVisible="False" FontAttributes="Bold" />
+                
+                <Entry x:Name="OAEntry" Text ="" IsEnabled="False" IsVisible="False" TextChanged="OAEntry_TextChanged"/>
+
+                <Label x:Name="PALabel"   Text="" FontSize="18" IsVisible="False" FontAttributes="Bold" />
+                
+                <Picker x:Name="PAEntry" IsEnabled="False" IsVisible="False" SelectedIndexChanged="PAEntry_SelectedIndexChanged">
+                    
+                
+                    <Picker.Items>
+                        <x:String>Essay</x:String>
+                        <x:String>Project</x:String>
+                        <x:String>Presentation</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="PAType_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
+                <Label x:Name="OANum_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

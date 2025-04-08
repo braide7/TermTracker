@@ -1,0 +1,101 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TermTrackerApp.Views.ReportPage"
+             Title="Reports">
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="Home" Clicked="OnHome_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <VerticalStackLayout Padding="5" Spacing="20">
+
+            <Label Text="Search Courses By" FontSize="18" FontAttributes="Bold" Margin="10,0,0,0"/>
+            <HorizontalStackLayout Spacing="20">
+                <RadioButton x:Name="SearchByName" Content="Name" 
+                             GroupName="SearchMode" 
+                             CheckedChanged="RadioButton_CheckedChanged" />
+                <RadioButton x:Name="SearchByDate" Content="Date" 
+                             GroupName="SearchMode" 
+                             CheckedChanged="RadioButton_CheckedChanged" />
+            </HorizontalStackLayout>
+
+            <Entry x:Name="SearchEntry" 
+                   Placeholder="Enter course name" 
+                   IsVisible="False" 
+                   TextChanged="SearchEntry_TextChanged" />
+            <Label x:Name="SearchEntry_Feedback" TextColor="red" IsVisible="false" Text="Please Enter Your Search Criteria"/>
+            <VerticalStackLayout x:Name="DateLayout" IsVisible="False" Spacing="10">
+                <Label Text="Start Date" FontSize="18" FontAttributes="Bold"/>
+                <DatePicker x:Name="StartDatePicker" DateSelected="StartDatePicker_DateSelected" MinimumDate="01/01/2024"
+                    MaximumDate="12/31/2030"/>
+
+                <Label Text="End Date" FontSize="18" FontAttributes="Bold"/>
+                <DatePicker x:Name="EndDatePicker"  DateSelected="EndDatePicker_DateSelected" MinimumDate="01/01/2024"
+                    MaximumDate="12/31/2030"/>
+                <Label x:Name="DateEntry_Feedback" TextColor="red" IsVisible="false" Text="Start Date cannot be after End Date"/>
+            </VerticalStackLayout>
+
+            <Button x:Name="RunReportButton" 
+                Text="Run Report" 
+                TextColor="Black" 
+                BackgroundColor="LightGray" 
+                Clicked="RunReportButton_Clicked"
+                Margin="70, 25, 70, 25" 
+                IsVisible="False"/>
+
+            <BoxView x:Name="Line1" Color="LightGray" HeightRequest="2" Margin= "0,0,0,20"  IsVisible="False"/>
+
+            <!-- CollectionView for Results -->
+            <Label x:Name="Report_Label" IsVisible="False" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+            <Frame x:Name="Report_Frame"  BorderColor="LightGray" CornerRadius="10" Padding="10" MinimumHeightRequest="200" IsVisible="False">
+                
+                <CollectionView x:Name="CoursesList" SelectionMode="Single" ItemsSource="{Binding CourseList}" SelectedItem="{Binding SelectedCourse, Mode=TwoWay}" SelectionChanged="CoursesList_SelectionChanged">
+                    
+                    <CollectionView.Header>
+
+                        
+                        <Grid Padding="0, 15" BackgroundColor="LightGray">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Name" FontSize="16" FontAttributes="Bold" Grid.Column="0" HorizontalOptions="Center" />
+                            <Label Text="Status" FontSize="16" FontAttributes="Bold" Grid.Column="1" HorizontalOptions="Center" />
+                            <Label Text="Start Date" FontSize="16" FontAttributes="Bold" Grid.Column="2" HorizontalOptions="Center" />
+                            <Label Text="End Date" FontSize="16" FontAttributes="Bold" Grid.Column="3" HorizontalOptions="Center" />
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}" FontSize="12" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" />
+                                <Label Text="{Binding Status}" FontSize="12" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" />
+                                <Label Text="{Binding StartDate, StringFormat='{0:MM/dd/yy}'}" FontSize="12" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" />
+                                <Label Text="{Binding EndDate, StringFormat='{0:MM/dd/yy}'}" FontSize="12" Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Frame>
+
+            <BoxView x:Name="Line2" Color="LightGray" HeightRequest="2" Margin= "0,20,0,0"  IsVisible="False"/>
+
+            <Button x:Name="ExportReportButton" 
+                Text="Export Report To File" 
+                TextColor="Black" 
+                BackgroundColor="LightGray" 
+                Clicked="ExportReportButton_Clicked"    
+                Margin="70, 25, 70, 25" 
+                IsVisible="False"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

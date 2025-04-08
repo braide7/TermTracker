@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TermTrackerApp.Views.LoginPage"
+             Title="Login" >
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Welcome" FontSize="32" HorizontalOptions="Center"/>
+
+        <Entry x:Name="UsernameEntry" Placeholder="Username"  Margin="50, 50, 50, 0" FontAttributes="Bold" FontSize="18"/>
+        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"  Margin="50, 0, 50, 0" FontAttributes="Bold" FontSize="18"/>
+
+        <Label x:Name="Password_Feedback" Text="" TextColor="Red" IsVisible="False" FontSize="12" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+        <Button Text="Login" Clicked="OnLoginClicked" TextColor="Black" FontAttributes="Bold" BackgroundColor="LightGray" Margin="70, 25, 70, 0" />
+        <Button Text="Register" Clicked="OnRegisterClicked" TextColor="Black" FontAttributes="Bold" BackgroundColor="#219ff4" Margin="70, 10, 70, 25" />
+
+    </VerticalStackLayout>
+
+</ContentPage>

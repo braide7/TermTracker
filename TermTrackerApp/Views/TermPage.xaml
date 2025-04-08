@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TermTrackerApp.Views.TermPage"
+             Title="Term Page">
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="Home" Clicked="OnHome_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="End">
+                <Button x:Name="EditButton" 
+                        Text="Edit" 
+                        TextColor="Black" 
+                        BackgroundColor="LightGray" 
+                        Clicked="OnEditClicked" 
+                        Margin="0, 0, 10, 0" />
+                <Button x:Name="SaveButton" 
+                        Text="Save" 
+                        TextColor="Black" 
+                        BackgroundColor="LightGray" 
+                        Clicked="OnSaveClicked" 
+                        IsEnabled="False"
+                        IsVisible="False"
+                        Margin="0, 0, 10, 0" />
+                <Button x:Name="OnDeleteButton" 
+                        Text="Delete" 
+                        TextColor="Black" 
+                        BackgroundColor="LightGray" 
+                        Clicked="OnDeleteClicked" 
+                        />
+            </HorizontalStackLayout>
+
+            <Label Text="Term Name" FontSize="18" FontAttributes="Bold"/>
+            <Entry x:Name="TitleEntry" IsEnabled="False" TextChanged="TitleEntry_TextChanged"/>
+            <Label x:Name="TitleEntry_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
+
+            <Label Text="Start Date" FontSize="18" FontAttributes="Bold"/>
+            <DatePicker x:Name="StartDatePicker" IsEnabled="False" DateSelected="StartDatePicker_DateSelected"/>
+
+            <Label Text="End Date" FontSize="18" FontAttributes="Bold"/>
+            <DatePicker x:Name="EndDatePicker" IsEnabled="False" DateSelected="EndDatePicker_DateSelected"/>
+
+            <Label x:Name="Date_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
+
+
+
+            <Label x:Name="Courses_label"  Text="Courses" FontSize="20" FontAttributes="Bold" Margin="0,10,0,5"/>
+            <BoxView Color="LightGray" HeightRequest="2" Margin= "0,0,0,20" />
+
+            <Label x:Name="Empty_Courses" Text="No Courses to Display" HorizontalOptions="Center" FontSize="18" VerticalOptions="Center" IsVisible="False"/>
+            <CollectionView x:Name="CoursesList" SelectionMode="Single" ItemsSource="{Binding CourseList}" SelectedItem="{Binding SelectedCourse, Mode=TwoWay}" SelectionChanged="CoursesList_SelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="10">
+
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Name}" FontSize="24" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Status}" FontSize="16" />
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Label Text="Start:" FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding StartDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="16"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Label Text="End:" FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding EndDate, StringFormat='{0:MM/dd/yyyy}'}" FontSize="16"/>
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <BoxView Color="LightGray" HeightRequest="2" Margin= "0,20,0,0" />
+            <Button x:Name="AddCourseButton" 
+                    Text="Add New Course" 
+                    TextColor="Black" 
+                    BackgroundColor="LightGray" 
+                    Clicked="AddCourseButton_Clicked" 
+                    IsEnabled="False"
+                    IsVisible="False"
+                    Margin="77, 25, 77, 0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
