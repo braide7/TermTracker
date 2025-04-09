@@ -108,7 +108,7 @@ public partial class TermPage : ContentPage
             {
                 
 
-                if (courses.Count() < 6 && _term.Id > 0)
+                if ( _term.Id > 0)
                 {
                     AddCourseButton.IsVisible = true;
                     AddCourseButton.IsEnabled = true;

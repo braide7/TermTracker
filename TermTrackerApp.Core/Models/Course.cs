@@ -20,8 +20,7 @@ namespace TermTrackerApp.Core.Models
         private DateTime _startDate;
         private DateTime _endDate;
         private string _instructorName;
-        private string _instructorPhone;
-        private string _instructorEmail;
+
         private bool _startNotification;
         private bool _endNotification;
         private string _notes;
@@ -78,18 +77,6 @@ namespace TermTrackerApp.Core.Models
         {
             get => _instructorName;
             set => _instructorName = value;
-        }
-
-        public string InstructorPhone
-        {
-            get => _instructorPhone;
-            set => _instructorPhone = value;
-        }
-
-        public string InstructorEmail
-        {
-            get => _instructorEmail;
-            set => _instructorEmail = value;
         }
 
         public bool StartNotification
