@@ -14,8 +14,7 @@ public partial class AssessmentPage : ContentPage
     private readonly IDatabaseService _databaseService;
     private bool _isEditing = false;
     private int _assessmentID;
-    private int _assessmentType;
-    private int? _existingAssessment;
+
     private INotifyService _notificationService = new NotificationService(new LocalNotificationCenterAdapter());
     private int _userId = -1;
 
@@ -23,13 +22,13 @@ public partial class AssessmentPage : ContentPage
 
 
 
-    public AssessmentPage(Course course, IDatabaseService databaseService, AuthService authService, int? assessmentID = null, int? assessmentType = null, int? existingAssessment = null)
+    public AssessmentPage(Course course, IDatabaseService databaseService, AuthService authService, int? assessmentID = null)
     {
         InitializeComponent();
         BindingContext = this;
         _course = course;
 
-        _existingAssessment = existingAssessment;
+
         _databaseService = databaseService;
         _authService = authService;
         if (_authService.CurrentUserId.HasValue) 
@@ -45,7 +44,7 @@ public partial class AssessmentPage : ContentPage
         EndDatePicker.MinimumDate = beginningDate;
         EndDatePicker.MaximumDate = endingDate;
 
-        if (!assessmentID.HasValue || !assessmentType.HasValue)
+        if (!assessmentID.HasValue )
         {
             _isEditing = true;
             isEditing(_isEditing);
@@ -58,7 +57,6 @@ public partial class AssessmentPage : ContentPage
         else
         {
             _assessmentID = assessmentID.Value;
-            _assessmentType = assessmentType.Value;
             LoadExistingAssessment();
         }
 
@@ -120,39 +118,7 @@ public partial class AssessmentPage : ContentPage
             AssessmentType_FeedbackLabel.IsVisible = false;
             AssessmentType_FeedbackLabel.Text = "";
         }
-        if (_existingAssessment.HasValue)
-        {
-            if (_existingAssessment == AssessmentPicker.SelectedIndex && _assessmentType != AssessmentPicker.SelectedIndex)
-            {
-
-                valid = false;
-                AssessmentType_FeedbackLabel.IsVisible = true;
-                AssessmentType_FeedbackLabel.Text = "You can only have one OA and PA per course";
-
-
-
-            }
-            else if (AssessmentPicker.SelectedIndex == -1)
-            {
-                AssessmentType_FeedbackLabel.IsVisible = true;
-                AssessmentType_FeedbackLabel.Text = "Please select the assessment type";
-
-            }
-            else if (_existingAssessment == 2 && AssessmentPicker.SelectedIndex != _assessmentType) 
-            {
-                valid = false;
-                AssessmentType_FeedbackLabel.IsVisible = true;
-                AssessmentType_FeedbackLabel.Text = "You can only have one OA and PA per course";
-            }
-            else
-            {
-                AssessmentType_FeedbackLabel.IsVisible = false;
-                AssessmentType_FeedbackLabel.Text = "";
-            }
-
-
-
-        }
+        
 
 
 

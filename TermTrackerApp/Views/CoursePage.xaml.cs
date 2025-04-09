@@ -23,7 +23,6 @@ public partial class CoursePage : ContentPage
 
     private bool _isEditing = false;
     private Term _term;
-    private int? _existingAssessment = null;
     private int _userId = -1;
 
     public ObservableCollection<Assessment> AssessmentList { get; set; } = new ObservableCollection<Assessment>();
@@ -103,16 +102,9 @@ public partial class CoursePage : ContentPage
                 foreach (var assessment in assessments)
                 {
                     AssessmentList.Add(assessment);
-                    if (assessment is ObjectiveAssessment)
-                    {
-                        _existingAssessment = 0;
-                    }
-                    else
-                    {
-                        _existingAssessment = 1;
-                    }
+ 
                 }
-                if (assessments.Count() < 2 && _course.Id > 0)
+                if ( _course.Id > 0)
                 {
                     AddAssessmentButton.IsVisible = true;
                     AddAssessmentButton.IsEnabled = true;
@@ -121,24 +113,13 @@ public partial class CoursePage : ContentPage
                 {
                     AddAssessmentButton.IsVisible = false;
                     AddAssessmentButton.IsEnabled = false;
-                    if (assessments.Count() == 2)
-                    {
-                        _existingAssessment = 2;
-                    }
-                    else 
-                    {
-                        _existingAssessment = null;
-                    }
+
                 }
 
 
 
             }
-            else 
-            {
-                _existingAssessment = -1;
-                
-            }
+
 
             OnPropertyChanged(nameof(AssessmentList));
         }
@@ -156,8 +137,6 @@ public partial class CoursePage : ContentPage
         StartDatePicker.Date = _course.StartDate;
         EndDatePicker.Date = _course.EndDate;
         InstructorNameEntry.Text = _course.InstructorName;
-        InstructorEmailEntry.Text = _course.InstructorEmail;
-        InstructorNumberEntry.Text = _course.InstructorPhone;
         CourseStatusPicker.SelectedItem = _course.Status;
         startSwitch.IsToggled = _course.StartNotification;
         endSwitch.IsToggled = _course.EndNotification;
@@ -172,8 +151,6 @@ public partial class CoursePage : ContentPage
         StartDatePicker.IsEnabled = editing;
         EndDatePicker.IsEnabled = editing;
         InstructorNameEntry.IsEnabled = editing;
-        InstructorEmailEntry.IsEnabled = editing;
-        InstructorNumberEntry.IsEnabled = editing;
         CourseStatusPicker.IsEnabled = editing;
         startSwitch.IsEnabled = editing;
         endSwitch.IsEnabled = editing;
@@ -204,8 +181,6 @@ public partial class CoursePage : ContentPage
         _course.StartDate = StartDatePicker.Date;
         _course.EndDate = EndDatePicker.Date.Date;
         _course.InstructorName = InstructorNameEntry.Text.Trim();
-        _course.InstructorPhone = InstructorNumberEntry.Text.Trim();
-        _course.InstructorEmail = InstructorEmailEntry.Text.Trim();
         _course.StatusIndex = CourseStatusPicker.SelectedIndex;
         _course.Status = GetStatusFromIndex(_course.StatusIndex);
         _course.StartNotification = startSwitch.IsToggled;
@@ -270,7 +245,7 @@ public partial class CoursePage : ContentPage
             //scrolls to bottom
             await CourseScrollView.ScrollToAsync(0, CourseScrollView.ContentSize.Height, true);
 
-            bool confirm = await DisplayAlert("Course Saved", $"{_course.Name} has been saved", $"Back to {_term.Title}", "Okay");
+            bool confirm = await DisplayAlert("Course Saved", $"{_course.Name} has been saved", $"Back to Term Page", "Okay");
             if (confirm)
             {
                 await Navigation.PopAsync();
@@ -331,7 +306,7 @@ public partial class CoursePage : ContentPage
 
     private void AddAssessmentButton_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new AssessmentPage(_course, _databaseService, _authService, null, null, _existingAssessment));
+        Navigation.PushAsync(new AssessmentPage(_course, _databaseService, _authService));
     }
 
     private void InstructorNameEntry_TextChanged(object sender, TextChangedEventArgs e)
@@ -340,17 +315,6 @@ public partial class CoursePage : ContentPage
         validateEntries();
     }
 
-    private void InstructorNumberEntry_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        userInput = true;
-        validateEntries();
-    }
-
-    private void InstructorEmailEntry_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        userInput = true;
-        validateEntries();
-    }
 
 
 
@@ -457,39 +421,7 @@ public partial class CoursePage : ContentPage
                 InstructorName_FeedbackLabel.IsVisible = false;
             }
 
-            if (string.IsNullOrWhiteSpace(InstructorEmailEntry.Text))
-            {
-                InstructorEmail_FeedbackLabel.Text = "Please enter a valid email";
-                InstructorEmail_FeedbackLabel.IsVisible = true;
-                valid = false;
-            } else if(!IsValidEmail(InstructorEmailEntry.Text.Trim())) 
-            {
-                InstructorEmail_FeedbackLabel.Text = "Please enter a valid email";
-                InstructorEmail_FeedbackLabel.IsVisible = true;
-                valid = false;
-            }
-            else
-            {
-                InstructorEmail_FeedbackLabel.Text = "";
-                InstructorEmail_FeedbackLabel.IsVisible = false;
-            }
 
-            if (string.IsNullOrWhiteSpace(InstructorNumberEntry.Text) )
-            {
-                InstructorNumber_FeedbackLabel.Text = "Please enter a valid phone number - 10 digits & numbers only";
-                InstructorNumber_FeedbackLabel.IsVisible = true;
-                valid = false;
-            }else if(!IsValidNumber(InstructorNumberEntry.Text.Trim()))
-            {
-                InstructorNumber_FeedbackLabel.Text = "Please enter a valid phone number - 10 digits & numbers only";
-                InstructorNumber_FeedbackLabel.IsVisible = true;
-                valid = false;
-            }
-            else
-            {
-                InstructorNumber_FeedbackLabel.Text = "";
-                InstructorNumber_FeedbackLabel.IsVisible = false;
-            }
 
             if (CourseStatusPicker.SelectedIndex == -1)
             {
@@ -532,7 +464,7 @@ public partial class CoursePage : ContentPage
             int assessType = selectedAssessment.TypeIndex;
 
             // Navigate to the course page
-            await Navigation.PushAsync(new AssessmentPage(_course, _databaseService, _authService, assessID, assessType, _existingAssessment));
+            await Navigation.PushAsync(new AssessmentPage(_course, _databaseService, _authService, assessID));
 
 
             AssessmentsList.SelectedItem = null;

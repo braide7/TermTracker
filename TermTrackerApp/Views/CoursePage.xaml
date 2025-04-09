@@ -48,14 +48,6 @@
                 <Entry x:Name="InstructorNameEntry" IsEnabled="False" TextChanged="InstructorNameEntry_TextChanged"/>
                 <Label x:Name="InstructorName_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
 
-                <Label Text="Instructor Number" FontSize="18" FontAttributes="Bold"/>
-                <Entry x:Name="InstructorNumberEntry" IsEnabled="False" TextChanged="InstructorNumberEntry_TextChanged"/>
-                <Label x:Name="InstructorNumber_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
-
-                <Label Text="Instructor Email" FontSize="18" FontAttributes="Bold"/>
-                <Entry x:Name="InstructorEmailEntry" IsEnabled="False" TextChanged="InstructorEmailEntry_TextChanged"/>
-                <Label x:Name="InstructorEmail_FeedbackLabel" Text="" TextColor="Red" IsVisible="False"/>
-
 
 
                 <Label Text="Course Status" FontSize="18" FontAttributes="Bold"/>
