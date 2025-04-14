@@ -31,8 +31,9 @@ Term Tracker simplifies academic planning by letting students organize terms, tr
 ## Demo
 
 Download the APK: [term-tracker-app.web.app](https://term-tracker-app.web.app)  
-![Term Tracker Demo](screenshots/term-tracker.gif)  
-*Note*: Add a demo GIF to `screenshots/` for a visual preview.
+
+![TermTrackerDemo](https://github.com/user-attachments/assets/5ca64b52-7adb-41f0-ab82-a3f12ee9ff57)
+
 
 ## Installation
 
