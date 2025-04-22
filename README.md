@@ -112,5 +112,7 @@ Download the APK: [term-tracker-app.web.app](https://term-tracker-app.web.app)
 - XAML (UI)
 - SQLite (local storage)
 - Plugin.LocalNotification (alerts)
+- BCrypt (password hashing)
+- Newtonsoft.json (.json course reports)
 - Firebase Hosting (APK distribution)
 
