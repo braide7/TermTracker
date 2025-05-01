@@ -115,4 +115,6 @@ Download the APK: [term-tracker-app.web.app](https://term-tracker-app.web.app)
 - BCrypt (password hashing)
 - Newtonsoft.json (.json course reports)
 - Firebase Hosting (APK distribution)
+- MOQ (Unit tests)
+- MsTest (Unit tests)
 
